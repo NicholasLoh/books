@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- Page Content -->
+  <div class="container">
+
+        <div class="row">
+           
+              <!-- /.col-lg-3 -->
+  
+          <div class="col-lg-9">
+  
+            <div class="card my-4">
+              <img class="card-img-top img-fluid" src="{{ items.photo_main.url }}" alt="">
+              <div class="card-body">
+                <h3 class="card-title">{{ items.title }}</h3>
+                <h4>RM{{ items.price }}</h4>
+                <p class="card-text">{{ items.description }}</p>
+              </div>
+            </div>
+          
+            <!-- /.card -->
+  
+          </div>
+          <!-- /.col-lg-9 -->
+          <!-- /.card -->
+          <div class="col-lg-3">
+            <img src="#" alt="">
+
+              <div class="card card-outline-secondary my-4">
+                  <div class="card-header text-center">
+                    <img class="card-img-top" src="{{ items.user.profile.picture.url }}" alt="Seller">
+                    <h5 class="mt-2">{{items.user.username}}</h5> 
+                  </div>
+
+                  <div class="card-body text-center">
+                    
+                    <a href="#" class="btn btn-success"><span class="px-4">Make Inquiry</span></a>
+                  </div>
+                </div>
+            
+          </div>
+  
+        </div>
+  
+      </div>
+      <!-- /.container -->
+{% endblock %}

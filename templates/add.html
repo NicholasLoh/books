@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form role="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_title">Title:</label>
+                    <input type="text" class="form-control" name="title" maxlength="200" required id="id_title">
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Description:</label>
+                    <input class="form-control" type="text" name="description" maxlength="200" required id="id_description">
+
+                </div>
+                <div class="form-group">
+                    <label for="id_stream">Stream:</label>
+                    <select name="stream" class="form-control"" id=" id_stream">
+                        <option selected="true" disabled="disabled">科系</option>
+
+                        <option value="all">全部</option>
+
+                        <option value="S">理科</option>
+
+                        <option value="AC">文商科</option>
+
+                        <option value="C">商科</option>
+
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="id_price">Price:</label>
+                    <input type="text" class="form-control" name="price" maxlength="200" required id="id_price">
+                </div>
+                <div class="form-group">
+                    <label for="id_photo_main">Photo main:</label>
+                    <input class="form-control-file" type="file" name="photo_main" accept="image/*" required id="id_photo_main">
+                </div>
+                <div class="form-group">
+                    <label for="id_photo_1">Photo 1:</label>
+                    <input class="form-control-file" type="file" name="photo_1" accept="image/*" id="id_photo_1">
+                </div>
+                <div class="form-group">
+                    <label for="id_photo_2">Photo 2:</label>
+                    <input class="form-control-file" type="file" name="photo_2" accept="image/*" id="id_photo_2">
+                </div>
+                <div class="form-group"> <label for="id_photo_3">Photo 3:</label>
+                    <input class="form-control-file" type="file" name="photo_3" accept="image/*" id="id_photo_3">
+                </div>
+                <div class="form-group">
+                    <label for="id_photo_4">Photo 4:</label> <input class="form-control-file" type="file" name="photo_4"
+                        accept="image/*" id="id_photo_4">
+
+                </div>
+                <div class="form-group"> <label for="id_photo_5">Photo 5:</label>
+                    <input class="form-control-file" type="file" name="photo_5" accept="image/*" id="id_photo_5">
+                </div>
+                <div class="form-group">
+                    <label for="id_photo_6">Photo 6:</label>
+                    <input class="form-control-file" type="file" name="photo_6" accept="image/*" id="id_photo_6">
+                </div>
+                <button class="btn btn-secondary btn-block mt-4" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

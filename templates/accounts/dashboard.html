@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row my-2">
+        {% include 'partials/alert.html' %}
+        <div class="col-lg-3 my-4 text-center">
+            <!-- If user has profile pic -->
+            <img src="        
+            {% if user.profile.picture %}
+                {{ user.profile.picture.url}}
+            {% else %}
+            ../../../media/photos/avatar.png
+            {% endif %}
+            "
+                class="my-auto mx-auto img-fluid img-thumbnail img-circle d-block" alt="avatar" height="200px" width="200px">
+            <h6 class="mt-2 my-auto">Upload a different photo</h6>
+            <!-- Upload picture form -->
+            <form action="{% url 'dashboard' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="mx-auto text-center">
+                        <label for="picture" class="p">Select Profile Picture: </label>
+                        <input type="file" name="picture" accept="image/*" id="id_picture">
+                    </div>
+                    <input name="pic" type="submit" value="Upload" class="btn w-50 btn-secondary btn-block mx-auto mt-2">
+                </div>
+            </form>
+            <!-- end of profile picture section -->
+        </div>
+        <div class="col-lg-9 my-4 px-4" id="verticalline">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#books" data-toggle="tab" class="nav-link">Books</a>
+                </li>
+            </ul>
+            <div class="tab-content py-4">
+                <!-- Profile Section -->
+                <div class="tab-pane active" id="profile">
+                    Name:
+                    <h5 class="mb-3">{{user.first_name}} {{user.last_name}}</h5>
+                    Username:
+                    <h5 class="mb-3">{{user.username}}</h5>
+                    Email:
+                    <h5 class="mb-3"> {{ user.email }} </h5>
+                </div>
+
+                <!-- Edit section -->
+                <div class="tab-pane" id="edit">
+                    <!-- Form for edit -->
+                    <form role="form" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="col-lg-3 col-form-label form-control-label">First name:
+                            </label>
+                            <input type="text" id="first_name" name="first_name" class="form-control w-50" value="{{user.first_name}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="col-lg-3 col-form-label form-control-label">Last name:
+                            </label>
+                            <input type="text" id="last_name" name="last_name" class="form-control w-50" value="{{user.last_name}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="col-lg-3 col-form-label form-control-label">Email:
+                            </label>
+                            <input type="text" id="email" name="email" class="form-control w-50" value="{{user.email}}">
+
+                        </div>
+                        <input id="changeUser" name="edit" type="submit" class="btn btn-primary" value="Save Changes">
+                        <a class="btn btn-secondary" href=" {% url 'change_pass' %}"> Change Password</a>
+                    </form>
+                </div>
+                <!-- Books section -->
+                <div class="tab-pane" id="books">
+                    <a class="btn btn-secondary mb-4" href="{% url 'addItem' %}" style="float:right;"><i class="fa fa-plus"
+                            aria-hidden="true"></i> Add Books</a>
+                    <!-- if there is item -->
+
+                    <table>
+                        <tr>
+                            <th>标题</th>
+                            <th>简介</th>
+                        </tr>
+                        {% if items %}
+                        {% for item in items %}
+                        <tr>
+                            <td><a href="{% url 'edit' item.id %}">{{item.title}}</a></td>
+                            <td>{{item.description}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    {% else %}
+                    <h1>No items</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <!-- End of row -->
+    </div>
+    <!-- End of whole container -->
+</div>
+
+
+{% endblock %}
