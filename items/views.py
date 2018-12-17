@@ -3,7 +3,7 @@ from .models import Item
 from .forms import AddForm
 # Create your views here.
 def home(request):
-    item = Item.objects.all()
+    item = Item.objects.order_by('list_date')
     context = {
         'items': item,
     }
@@ -19,7 +19,21 @@ def item(request, item_id):
     return render(request, 'item.html', context)
     
 def search(request):
-    return render(request, 'search.html')
+    item = Item.objects.order_by('list_date')
+    if 'keywords' in request.GET:
+        keywords = request.GET['keywords']
+        if keywords:
+            item = item.filter(description__icontains = keywords)
+
+    if 'stream' in request.GET:
+        stream = request.GET['stream']
+        if stream:
+
+            item = item.filter(stream = stream)
+    context = {
+        'items' : item,
+    }
+    return render(request,'search.html', context)
 
 def addItem(request):
     if request.method == 'POST':

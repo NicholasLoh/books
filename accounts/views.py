@@ -8,6 +8,7 @@ from .models import Profile
 from items.models import Item
 from decorater import user_is_creator
 
+
 def register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -39,12 +40,13 @@ def register(request):
                     messages.success(
                         request, 'You are now registered and can log in')
                     return redirect('login')
-        #password not match
+        # password not match
         else:
             messages.error(request, 'Password not match')
             return redirect('register')
 
     return render(request, 'accounts/register.html', {'form': UserProfileForm})
+
 
 def login(request):
     if request.method == 'POST':
@@ -62,17 +64,19 @@ def login(request):
 
     return render(request, 'accounts/login.html')
 
+
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Logged Out')
     return redirect('login')
+
 
 def dashboard(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)
         picForm = UserProfileForm(request.POST, request.FILES)
         if 'pic' in request.POST:
-            #picture validation and upload
+            # picture validation and upload
             if picForm.is_valid():
                 user = request.user
                 user.profile.delete()
@@ -81,7 +85,7 @@ def dashboard(request):
                 picForm.save()
                 return redirect('dashboard')
         elif 'edit' in request.POST:
-            #edit validation and upload
+            # edit validation and upload
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
             email = request.POST['email']
@@ -95,12 +99,13 @@ def dashboard(request):
     users = User.objects.all().select_related('profile')
     item = Item.objects.all().filter(user=user)
     context = {
-        'items' : item,
+        'items': item,
         'users': users,
         'form': UserChangeForm(request.POST, instance=request.user),
         'picForm': UserProfileForm(request.POST, request.FILES),
     }
     return render(request, 'accounts/dashboard.html', context)
+
 
 def change_pass(request):
     passForm = PasswordChangeForm(request.user, request.POST)
@@ -114,39 +119,39 @@ def change_pass(request):
     }
     return render(request, 'accounts/changepass.html', context)
 
+
 @user_is_creator
 def edit(request, item_id):
-    user = request.user.id
-    if Item.objects.get(user_id=user):
-        u = Item.objects.get(pk=item_id)
-        if request.method == 'POST':
+
+    if request.method == 'POST':
+
+        form = EditItemForm(request.POST, request.FILES)
+
+        if 'edit' in request.POST:
             title = request.POST['title']
             description = request.POST['description']
             stream = request.POST['stream']
             price = request.POST['price']
-            form = EditItemForm(request.POST, request.FILES)
-            
-            if form.is_valid(): 
-                if 'edit' in request.POST:
-                    user = request.user
-                    u = Item.objects.get(pk=item_id)
-                    u.delete()
-                    item = form.save(commit=False)
-                    item.user = user
-                    form.save()
-                    return redirect('dashboard') 
-                elif 'delete' in request.POST:
-                    item.delete()
-                    return redirect('dashboard')     
-            else:
-                print('invalid')
-        user = request.user
-        item = get_object_or_404(Item, pk = item_id)
-        context = {
-            'form' : EditItemForm(request.POST, request.FILES),
-            'items': item,
-            'user' : user,
-        }
-        return render(request, 'accounts/edititem.html', context)
+            if form.is_valid():
+                user = request.user
+                u = Item.objects.get(pk=item_id)
+                u.delete()
+                item = form.save(commit=False)
+                item.user = user
+                form.save()
+                return redirect('dashboard')
+
+        elif 'delete' in request.POST:
+            delete_item = Item.objects.get(pk=item_id)
+            delete_item.delete()
+            return redirect('dashboard')
     else:
-        return redirect('home')
+        print('invalid')
+    user = request.user
+    item = get_object_or_404(Item, pk=item_id)
+    context = {
+        'form': EditItemForm(request.POST, request.FILES),
+        'items': item,
+        'user': user,
+    }
+    return render(request, 'accounts/edititem.html', context)

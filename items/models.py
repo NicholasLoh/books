@@ -7,16 +7,17 @@ from datetime import datetime
 
 STREAM_CHOICES = (
     ('all', '全部'),
-    ('S', '理科'),
-    ('AC', '文商科'),
-    ('C', '商科'),
+    ('理科', '理科'),
+    ('文商', '文商科'),
+    ('商', '商科'),
+    ('商文商', '商文商'),
 )
 class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     picture = models.ManyToManyField(Profile)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    stream = models.CharField(max_length=4, choices=STREAM_CHOICES)
+    stream = models.CharField(max_length=5,  choices=STREAM_CHOICES)
     price = models.CharField(max_length=200)
     is_sold = models.BooleanField(default=False)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')

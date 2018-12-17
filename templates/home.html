@@ -3,111 +3,116 @@
 
 <!-- Page Content -->
 <div class="container">
-    <div class="row">
-         <div class="col-lg-3">
-            <h1 class="my-4">FY Book</h1>
-            <div class="container">
-             <div class="row text-center">
-        <div class="col-md-12">
-          <form action="search.html">
-            <!-- Form Row 1 -->
-            <div class="form-row">
-              <div class="col-md-8 mb-3">
-                <label class="sr-only">Keywords</label>
-                <input type="text" name="keywords" class="form-control" placeholder="Keyword (华文，散卖，全套)">
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label class="sr-only">科系</label>
-                <select name="class" class="form-control">
-                  <option selected="true" disabled="disabled">科系</option>
-                  <option value="C">商科</option>
-                  <option value="S">理科</option>
-                  <option value="AC">文商科</option>
-                </select>
-              </div>
-            </div>
-
-            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
-          </form>
-        </div>
-      </div>
-            </div>
-  
-          </div>
-          <!-- /.col-lg-3 -->
-  
-          <div class="col-lg-9">
-  
-            <div class="row my-4">
-              {% if items %}
-              {% for item in items %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="{{ item.photo_main.url }}" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="{% url 'item' item.id %}">{{ item.title }}</a>
-                      </h4>
-                      <h5>RM{{ item.price }}</h5>
-                      <p class="card-text">{{ item.description }}</p>
-                    </div>
-                    <hr>
-                    <div class="class-footer text-center">
-                      Created By: {{item.user.username}}
-                    </div>
-                  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <h1 class="my-4">FY Book</h1>
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-12">
+            <form action="{% url 'search' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-8 mb-3">
+                  <label class="sr-only">Keywords</label>
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (华文，散卖，全套)">
                 </div>
-            {% endfor %}
-            {% else %}
-            <h1>No Item Available</h1>
-            {% endif %}
-            </div>
-            <!-- /.row -->
-  
-          </div>
-          <!-- /.col-lg-9 -->
-  
-        </div>
-        <!-- /.row -->
 
-        <!-- pagination -->
-        <div class="row">
-            <div class="col-md-12">
-              <ul class="pagination">
-                {% if items.has_previous %}
-                  <li class="page-item">
-                    <a href="?page={{ items.previous_page_number }}" class="page-link">&laquo;</a>
-                  </li>
-                {% else %}  
-                <li class="page-item disabled">
-                  <a class="page-link">&laquo;</a>
-                </li>
-                {% endif %}
-                {% for i in items.paginator.page_range %}
-                  {% if items.number == i %} 
-                    <li class="page-item active">
-                      <a href="?page={{ i }}" class="page-link ">{{ i }}</a>
-                    </li>          
-                  {% else %}
-                  <li class="page-item ">
-                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-                  </li>     
-                {% endif %}
-                {% endfor %}
-                {% if items.has_next %}
-                  <li class="page-item">
-                    <a href="?page={{ item.next_page_number }}" class="page-link">&raquo;</a>
-                  </li>
-                {% else %}  
-                <li class="page-item disabled">
-                  <a class="page-link">&raquo;</a>
-                </li>
-                {% endif %}
-              </ul>
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">科系</label>
+                  <select name="stream" class="form-control">
+                    <option selected="true" disabled="disabled">科系</option>
+
+                    <option value="理科">理科</option>
+
+                    <option value="文商">文商科</option>
+
+                    <option value="商">商科</option>
+
+                    <option value="商文商">商文商</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Filter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.col-lg-3 -->
+
+    <div class="col-lg-9">
+
+      <div class="row my-4">
+        {% if items %}
+        {% for item in items %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" src="{{ item.photo_main.url }}" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="{% url 'item' item.id %}">{{ item.title }}</a>
+              </h4>
+              <h5>RM{{ item.price }}</h5>
+              <p class="card-text">{{ item.description }}</p>
+            </div>
+            <hr>
+            <div class="class-footer text-center">
+              Created By: {{item.user.username}}
             </div>
           </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1>No Item Available</h1>
+        {% endif %}
       </div>
-      <!-- /.container -->
+      <!-- /.row -->
+
+    </div>
+    <!-- /.col-lg-9 -->
+
+  </div>
+  <!-- /.row -->
+
+  <!-- pagination -->
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="pagination">
+        {% if items.has_previous %}
+        <li class="page-item">
+          <a href="?page={{ items.previous_page_number }}" class="page-link">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&laquo;</a>
+        </li>
+        {% endif %}
+        {% for i in items.paginator.page_range %}
+        {% if items.number == i %}
+        <li class="page-item active">
+          <a href="?page={{ i }}" class="page-link ">{{ i }}</a>
+        </li>
+        {% else %}
+        <li class="page-item ">
+          <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if items.has_next %}
+        <li class="page-item">
+          <a href="?page={{ item.next_page_number }}" class="page-link">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /.container -->
 
 {% endblock %}

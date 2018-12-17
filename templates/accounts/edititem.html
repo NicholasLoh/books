@@ -1,81 +1,83 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-4">
-    <h1>{{ items.title }} <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a> </h1>
-        <form  method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-           
-                <img class="img-fluid" src="{{ items.photo_main.url }}" alt="" height="300px" width="350px">
-                <div class="form-group">
-                    <div class="">
-                        <label for="photo_main" class="p">Select Picture: </label>
-                        <input type="file" name="photo_main" accept="image/*" id="id_photo_main">
-                    </div>
-                </div>       
-                <div class="form-group">
-                    <label for="id_title">标题:</label>
-                    <input value="{{items.title}}" type="text" class="form-control" name="title" maxlength="200"
-                        required id="id_title">
-                </div>
-                <div class="form-group">
-                    <label for="id_description">简介:</label>
-                    <input value="{{items.description}}" class="form-control" type="text" name="description" maxlength="200"
-                        required id="id_description">
+    <h1>{{ items.title }}
+    </h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-                </div>
-                <div class="form-group">
-                    <label for="id_stream">科系:</label>
-                    <select name="stream" class="form-control"" id=" id_stream">
-                        <option selected="true" disabled="disabled">科系</option>
+        <img class="img-fluid" src="{{ items.photo_main.url }}" alt="" height="300px" width="350px">
+        <div class="form-group">
+            <div class="">
+                <label for="photo_main" class="p">Select Picture: </label>
+                <input type="file" name="photo_main" accept="image/*" id="id_photo_main">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_title">标题:</label>
+            <input value="{{items.title}}" type="text" class="form-control" name="title" maxlength="200" required id="id_title">
+        </div>
+        <div class="form-group">
+            <label for="id_description">简介:</label>
+            <input value="{{items.description}}" class="form-control" type="text" name="description" maxlength="200"
+                required id="id_description">
 
-                        <option value="all">全部</option>
+        </div>
+        <div class="form-group">
+            <label for="id_stream">科系:</label>
+            <select name="stream" class="form-control" id=" id_stream">
+                <option selected="true" disabled="disabled">{{ items.stream }}</option>
 
-                        <option value="S">理科</option>
+                <option value="all">全部</option>
 
-                        <option value="AC">文商科</option>
+                <option value="理科">理科</option>
 
-                        <option value="C">商科</option>
+                <option value="文商">文商科</option>
 
-                    </select>
-                    <div class="form-group">
-                        <label for="id_price">价钱:</label>
-                        <input value="{{items.price}}" type="text" class="form-control" name="price" maxlength="200"
-                            required id="id_price">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="id_is_sold">已卖:</label><input type="checkbox" name="is_sold" id="id_is_sold">
-                </div>
+                <option value="商">商科</option>
 
-                <div class="form-group">
-                    <label for="id_photo_1">Photo 1:</label>
-                    <input class="form-control-file" type="file" name="photo_1" accept="image/*" id="id_photo_1">
-                </div>
-                <div class="form-group">
-                    <label for="id_photo_2">Photo 2:</label>
-                    <input class="form-control-file" type="file" name="photo_2" accept="image/*" id="id_photo_2">
-                </div>
-                <div class="form-group"> <label for="id_photo_3">Photo 3:</label>
-                    <input class="form-control-file" type="file" name="photo_3" accept="image/*" id="id_photo_3">
-                </div>
-                <div class="form-group">
-                    <label for="id_photo_4">Photo 4:</label> <input class="form-control-file" type="file" name="photo_4"
-                        accept="image/*" id="id_photo_4">
+                <option value="商文商">商文商</option>
 
-                </div>
-                <div class="form-group"> <label for="id_photo_5">Photo 5:</label>
-                    <input class="form-control-file" type="file" name="photo_5" accept="image/*" id="id_photo_5">
-                </div>
-                <div class="form-group">
-                    <label for="id_photo_6">Photo 6:</label>
-                    <input class="form-control-file" type="file" name="photo_6" accept="image/*" id="id_photo_6">
-                </div>
-                <div class="btn-group" role="group">
-                    <button name="edit" class="btn btn-primary btn-block mt-2 mb-4 mx-2" type="submit">Submit</button>
+            </select>
+            <div class="form-group">
+                <label for="id_price">价钱:</label>
+                <input value="{{items.price}}" type="text" class="form-control" name="price" maxlength="200" required
+                    id="id_price">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_is_sold">已卖:</label><input type="checkbox" name="is_sold" id="id_is_sold">
+        </div>
 
-                </div>
+        <div class="form-group">
+            <label for="id_photo_1">Photo 1:</label>
+            <input class="form-control-file" type="file" name="photo_1" accept="image/*" id="id_photo_1">
+        </div>
+        <div class="form-group">
+            <label for="id_photo_2">Photo 2:</label>
+            <input class="form-control-file" type="file" name="photo_2" accept="image/*" id="id_photo_2">
+        </div>
+        <div class="form-group"> <label for="id_photo_3">Photo 3:</label>
+            <input class="form-control-file" type="file" name="photo_3" accept="image/*" id="id_photo_3">
+        </div>
+        <div class="form-group">
+            <label for="id_photo_4">Photo 4:</label> <input class="form-control-file" type="file" name="photo_4" accept="image/*"
+                id="id_photo_4">
 
-        </form>
+        </div>
+        <div class="form-group"> <label for="id_photo_5">Photo 5:</label>
+            <input class="form-control-file" type="file" name="photo_5" accept="image/*" id="id_photo_5">
+        </div>
+        <div class="form-group">
+            <label for="id_photo_6">Photo 6:</label>
+            <input class="form-control-file" type="file" name="photo_6" accept="image/*" id="id_photo_6">
+        </div>
+        <div class="btn-group" role="group">
+            <button name="edit" class="btn btn-primary btn-block mt-2 mb-4 mx-2" type="submit">Submit</button>
+            <button name="delete" class="btn btn-secondary btn-block mt-2 mb-4 mx-2" type="submit">Delete</button>
+        </div>
+
+    </form>
 </div>
 
 </div>
