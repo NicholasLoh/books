@@ -27,9 +27,12 @@ def search(request):
 
     if 'stream' in request.GET:
         stream = request.GET['stream']
-        if stream:
-
-            item = item.filter(stream = stream)
+        if stream == '理科':
+            item = item.exclude(stream = '文商').exclude(stream = '商')
+        elif stream == '文商':
+            item = item.exclude(stream = '理科').exclude(stream = '商')
+        elif stream == '商':
+            item = item.exclude(stream = '理科')    
     context = {
         'items' : item,
     }

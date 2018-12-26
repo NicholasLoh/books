@@ -45,7 +45,7 @@ def register(request):
             messages.error(request, 'Password not match')
             return redirect('register')
 
-    return render(request, 'accounts/register.html', {'form': UserProfileForm})
+    return render(request, 'registration/register.html', {'form': UserProfileForm})
 
 
 def login(request):
@@ -62,7 +62,7 @@ def login(request):
             messages.error(request, 'Invalid credentials')
             return redirect('login')
 
-    return render(request, 'accounts/login.html')
+    return render(request, 'registration/login.html')
 
 
 def logout(request):
@@ -89,7 +89,7 @@ def dashboard(request):
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
             email = request.POST['email']
-            if User.objects.filter(email=email).exclude(email__iexact=email):
+            if User.objects.filter(email=email).exists():
                 messages.error(request, 'That email is being used')
                 return redirect('dashboard')
             else:
@@ -117,7 +117,7 @@ def change_pass(request):
     context = {
         'passForm': passForm,
     }
-    return render(request, 'accounts/changepass.html', context)
+    return render(request, 'registration/changepass.html', context)
 
 
 @user_is_creator

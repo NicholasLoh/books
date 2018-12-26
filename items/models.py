@@ -17,7 +17,7 @@ class Item(models.Model):
     picture = models.ManyToManyField(Profile)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    stream = models.CharField(max_length=5,  choices=STREAM_CHOICES)
+    stream = models.CharField(max_length=100,  choices=STREAM_CHOICES)
     price = models.CharField(max_length=200)
     is_sold = models.BooleanField(default=False)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')

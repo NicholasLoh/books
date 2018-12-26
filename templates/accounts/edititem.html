@@ -10,7 +10,7 @@
         <div class="form-group">
             <div class="">
                 <label for="photo_main" class="p">Select Picture: </label>
-                <input type="file" name="photo_main" accept="image/*" id="id_photo_main">
+                <input value="{{ items.photo_main.url }}" type="file" name="photo_main" accept="image/*" id="id_photo_main" required> 
             </div>
         </div>
         <div class="form-group">
@@ -26,7 +26,7 @@
         <div class="form-group">
             <label for="id_stream">科系:</label>
             <select name="stream" class="form-control" id=" id_stream">
-                <option selected="true" disabled="disabled">{{ items.stream }}</option>
+                <option value="{{ items.stream }}" selected="true" >{{ items.stream }}</option>
 
                 <option value="all">全部</option>
 
