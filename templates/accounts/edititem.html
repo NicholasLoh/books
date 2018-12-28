@@ -10,7 +10,8 @@
         <div class="form-group">
             <div class="">
                 <label for="photo_main" class="p">Select Picture: </label>
-                <input value="{{ items.photo_main.url }}" type="file" name="photo_main" accept="image/*" id="id_photo_main" required> 
+                <input value="{{ items.photo_main.url }}" type="file" name="photo_main" accept="image/*" id="id_photo_main"
+                    required>
             </div>
         </div>
         <div class="form-group">
@@ -26,7 +27,7 @@
         <div class="form-group">
             <label for="id_stream">科系:</label>
             <select name="stream" class="form-control" id=" id_stream">
-                <option value="{{ items.stream }}" selected="true" >{{ items.stream }}</option>
+                <option value="{{ items.stream }}" selected="true">{{ items.stream }}</option>
 
                 <option value="all">全部</option>
 
@@ -39,16 +40,28 @@
                 <option value="商文商">商文商</option>
 
             </select>
-            <div class="form-group">
-                <label for="id_price">价钱:</label>
-                <input value="{{items.price}}" type="text" class="form-control" name="price" maxlength="200" required
-                    id="id_price">
-            </div>
+
         </div>
         <div class="form-group">
-            <label for="id_is_sold">已卖:</label><input type="checkbox" name="is_sold" id="id_is_sold">
-        </div>
+            <label for="id_level">Stream:</label>
+            <select name="level" class="form-control" id=" id_level">
+                <option selected="true" disabled="disabled">年段</option>
 
+                <option value="{{ items.level }}" selected="true">{{ items.level }}</option>
+
+                <option value="全部">全部</option>
+
+                <option value="高中">高中</option>
+
+                <option value="初中">初中</option>
+
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="id_price">价钱:</label>
+            <input value="{{items.price}}" type="text" class="form-control" name="price" maxlength="200" required id="id_price">
+        </div>
         <div class="form-group">
             <label for="id_photo_1">Photo 1:</label>
             <input class="form-control-file" type="file" name="photo_1" accept="image/*" id="id_photo_1">

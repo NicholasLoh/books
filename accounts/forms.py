@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Inquiry
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from items.models import Item
@@ -36,3 +36,8 @@ class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
         exclude = ('user', 'list_date','picture')
+
+class InquiryForm(forms.ModelForm):
+    class Meta:
+        model = Inquiry
+        fields = '__all__'

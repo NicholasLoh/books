@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .forms import UserProfileForm, UserChangeForm, EditItemForm
-from .models import Profile
+from .forms import UserProfileForm, UserChangeForm, EditItemForm, InquiryForm
+from .models import Profile, Inquiry
 from items.models import Item
 from decorater import user_is_creator
-
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 def register(request):
     if request.method == 'POST':
@@ -48,29 +49,6 @@ def register(request):
     return render(request, 'registration/register.html', {'form': UserProfileForm})
 
 
-def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            auth.login(request, user)
-            messages.success(request, 'You are now logged in')
-            return redirect('dashboard')
-        else:
-            messages.error(request, 'Invalid credentials')
-            return redirect('login')
-
-    return render(request, 'registration/login.html')
-
-
-def logout(request):
-    auth.logout(request)
-    messages.success(request, 'Logged Out')
-    return redirect('login')
-
-
 def dashboard(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)
@@ -105,19 +83,6 @@ def dashboard(request):
         'picForm': UserProfileForm(request.POST, request.FILES),
     }
     return render(request, 'accounts/dashboard.html', context)
-
-
-def change_pass(request):
-    passForm = PasswordChangeForm(request.user, request.POST)
-    if request.method == 'POST':
-        if passForm.is_valid():
-            passForm.save()
-            update_session_auth_hash(request, passForm.user)
-            return redirect('logout')
-    context = {
-        'passForm': passForm,
-    }
-    return render(request, 'registration/changepass.html', context)
 
 
 @user_is_creator
@@ -155,3 +120,41 @@ def edit(request, item_id):
         'user': user,
     }
     return render(request, 'accounts/edititem.html', context)
+
+
+@login_required
+def inquiry(request):
+    if request.method == 'POST':
+        form = InquiryForm(request.POST)
+        item_id = request.POST['item_id']
+        item = request.POST['item']
+        name = request.POST['name']
+        email = request.POST['email']
+        contact = request.POST['contact']
+        message = request.POST['message']
+        userId = request.POST['userId']
+        sellerEmail = request.POST['sellerEmail']
+        #  Check if user has made inquiry already
+        user_id = request.user.id
+        has_contacted = Inquiry.objects.all().filter(item_id=item_id, userId=user_id)
+        if has_contacted:
+            messages.error(request, 'You have already made an inquiry for this item')
+            return redirect('/' + item_id)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your request has been submitted, please check your email for the reply of the seller')
+        
+            #Send email
+            send_mail(
+            'Foon Yew Text Book Inquiry',
+            'There has been an inquiry for ' + item + '.'
+            'Inquiry Person email: ' + email + ''
+            'Person contact: ' + contact + '.'
+            'Notes: ' + message + '.',
+            'nicholas.lohlk@gmail.com',
+            [sellerEmail],
+            fail_silently=False
+            )
+            return redirect('/' + item_id)
+
+    return redirect('/' + item_id)

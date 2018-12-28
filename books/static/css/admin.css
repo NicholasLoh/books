@@ -1,0 +1,24 @@
+#branding h1, #branding h1 a:link, #branding h1 a:visited{
+    color: white;
+}
+
+div #header{
+    background-color: #343a40!important; 
+}
+
+div .breadcrumbs{
+    background-color: #007bff!important;
+}
+
+.module h2, .module caption, .inline-group h2{
+    background-color: #007bff!important;
+}
+
+.selector .selector-available h2{
+    color: white!important;
+}
+
+#content-related .module h2{
+    color: white!important;
+
+}

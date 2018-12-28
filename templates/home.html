@@ -12,12 +12,12 @@
             <form action="{% url 'search' %}">
               <!-- Form Row 1 -->
               <div class="form-row">
-                <div class="col-md-8 mb-3">
+                <div class="col-md-12 mb-3">
                   <label class="sr-only">Keywords</label>
                   <input type="text" name="keywords" class="form-control" placeholder="Keyword (华文，散卖，全套)">
                 </div>
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                   <label class="sr-only">科系</label>
                   <select name="stream" class="form-control">
                     <option selected="true" disabled="disabled">科系</option>
@@ -27,6 +27,20 @@
                     <option value="文商">文商科</option>
 
                     <option value="商">商科</option>
+
+                  </select>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                  <label class="sr-only">年段</label>
+                  <select name="level" class="form-control">
+                    <option selected="true" disabled="disabled">年段</option>
+                    
+                    <option value="全部">全部</option>
+
+                    <option value="高中">高中</option>
+
+                    <option value="初中">初中</option>
 
                   </select>
                 </div>
@@ -54,11 +68,6 @@
                 <a href="{% url 'item' item.id %}">{{ item.title }}</a>
               </h4>
               <h5>RM{{ item.price }}</h5>
-              <p class="card-text">{{ item.description }}</p>
-            </div>
-            <hr>
-            <div class="class-footer text-center">
-              Created By: {{item.user.username}}
             </div>
           </div>
         </div>
@@ -74,7 +83,8 @@
 
   </div>
   <!-- /.row -->
-
+  
+  {% if items %}
   <!-- pagination -->
   <div class="row">
     <div class="col-md-12">
@@ -111,6 +121,7 @@
       </ul>
     </div>
   </div>
+  {% endif %}
 </div>
 <!-- /.container -->
 

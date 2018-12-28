@@ -44,13 +44,13 @@
             {% endif %}
           </div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
 
 
@@ -64,18 +64,63 @@
     </div>
     <!-- /.col-lg-9 -->
     <!-- /.card -->
-    <div class="col-lg-3">
-      <img src="#" alt="">
 
+    <!--Inquiry Form-->
+    <div class="col-lg-3">
       <div class="card card-outline-secondary my-4">
         <div class="card-header text-center">
+          <h5 class="mb-2">Seller:</h5>
           <img class="card-img-top" src="{{ items.user.profile.picture.url }}" alt="Seller">
           <h5 class="mt-2"> <a href="#">{{items.user.username}}</a> </h5>
         </div>
 
-        <div class="card-body text-center">
+        <div class="card-body ">
+          {% include 'partials/alert.html' %}
+          <form action="{% url 'inquiry' %}" method="POST">
+            {% csrf_token %}
+            <!--Get Seller Email-->
+            <input type="hidden" name="sellerEmail" id="id_sellerEmail" value="{{items.user.email}}">
 
-          <a href="#" class="btn btn-success"><span class="px-4">Make Inquiry</span></a>
+            <!-- Get Use Id -->
+            <input type="hidden" name="userId" id="id_userId" value="{{user.id}}">
+
+            <!-- Get item id -->
+            <input type="hidden" name="item_id" required id="id_item_id" value="{{items.id}}">
+            
+            <!-- Get user name -->
+            <div class="form-group">
+              <label for="col-lg-3 col-form-label form-control-label">Name:</label>
+              <input type="text" name="name" maxlength="200" required id="id_name" value="{{user.first_name}} {{user.last_name}}">
+            </div>
+
+            <!-- Get User Email -->
+            <div class="form-group">
+              <label for="col-lg-3 col-form-label form-control-label">Email:</label>
+              <input type="text" name="email" value="{{user.email}}" maxlength="200" required id="id_email">
+            </div>
+
+            <!-- Get Item -->
+            <div class="form-group">
+              <label for="col-lg-3 col-form-label form-control-label">Item:</label>
+              <input type="text" name="item" maxlength="200" required id="id_item" value="{{ items.title }}">
+            </div>
+
+            <!-- Get User Message to Seller -->
+            <div class="form-group">
+              <label for="col-lg-3 col-form-label form-control-label">Notes to Seller:</label>
+              <input type="text" name="message" maxlength="200" required id="id_message" placeholder="Additional message to seller">
+            </div>
+
+            <!-- Get User Contact -->
+            <div class="form-group">
+              <label for="col-lg-3 col-form-label form-control-label">Contacts:</label>
+              <input type="text" name="contact" maxlength="200" required id="id_contact" placeholder="Eg. WeChat, Line"> 
+            </div>
+
+            <div class="text-center">
+              <input id="inquiry" name="inquiry" type="submit" class="btn btn-primary w-100" value="Make Inquiry">
+            </div>
+          </form>
         </div>
       </div>
 

@@ -10,16 +10,22 @@ STREAM_CHOICES = (
     ('理科', '理科'),
     ('文商', '文商科'),
     ('商', '商科'),
-    ('商文商', '商文商'),
 )
+
+LEVEL_CHOICES = (
+    ('全部','全部'),
+    ('初中', '初中'),
+    ('高中','高中'),
+)
+
 class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     picture = models.ManyToManyField(Profile)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    stream = models.CharField(max_length=100,  choices=STREAM_CHOICES)
+    stream = models.CharField(max_length=4,  choices=STREAM_CHOICES)
+    level = models.CharField(max_length=2,  choices=LEVEL_CHOICES, default="高中")
     price = models.CharField(max_length=200)
-    is_sold = models.BooleanField(default=False)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
     photo_1 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
