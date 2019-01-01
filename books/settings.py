@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'books.wsgi.application'
 #        'HOST': 'localhost',
 #   }
 #}
-'DATABASES = {
+DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
