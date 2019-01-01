@@ -23,13 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
-git push heroku master = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-
-
 
 # Application definition
 
@@ -174,7 +170,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'fybook.herokuapp.com',
+]
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
