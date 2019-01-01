@@ -1,2 +1,6 @@
 /media
 /static
+.env
+venv
+*.pyc
+db.sqlite3

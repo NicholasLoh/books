@@ -90,35 +90,35 @@
             <!-- Get user name -->
             <div class="form-group">
               <label for="col-lg-3 col-form-label form-control-label">Name:</label>
-              <input type="text" name="name" maxlength="200" required id="id_name" value="{{user.first_name}} {{user.last_name}}">
+              <input type="text" name="name" class="form-control" maxlength="200" required id="id_name" value="{{user.first_name}} {{user.last_name}}">
             </div>
 
             <!-- Get User Email -->
             <div class="form-group">
               <label for="col-lg-3 col-form-label form-control-label">Email:</label>
-              <input type="text" name="email" value="{{user.email}}" maxlength="200" required id="id_email">
+              <input type="text" name="email" class="form-control" value="{{user.email}}" maxlength="200" required id="id_email">
             </div>
 
             <!-- Get Item -->
             <div class="form-group">
               <label for="col-lg-3 col-form-label form-control-label">Item:</label>
-              <input type="text" name="item" maxlength="200" required id="id_item" value="{{ items.title }}">
+              <input type="text" name="item" class="form-control" maxlength="200" required id="id_item" value="{{ items.title }}">
             </div>
 
             <!-- Get User Message to Seller -->
             <div class="form-group">
               <label for="col-lg-3 col-form-label form-control-label">Notes to Seller:</label>
-              <input type="text" name="message" maxlength="200" required id="id_message" placeholder="Additional message to seller">
+              <input type="text" name="message" class="form-control" maxlength="200" required id="id_message" placeholder="Additional message to seller">
             </div>
 
             <!-- Get User Contact -->
             <div class="form-group">
               <label for="col-lg-3 col-form-label form-control-label">Contacts:</label>
-              <input type="text" name="contact" maxlength="200" required id="id_contact" placeholder="Eg. WeChat, Line"> 
+              <input type="text" name="contact" class="form-control" maxlength="200" required id="id_contact" placeholder="Eg. WeChat, Line"> 
             </div>
 
             <div class="text-center">
-              <input id="inquiry" name="inquiry" type="submit" class="btn btn-primary w-100" value="Make Inquiry">
+              <input id="inquiry" name="inquiry" class="form-control" type="submit" class="btn btn-primary w-100" value="Make Inquiry">
             </div>
           </form>
         </div>
