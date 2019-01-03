@@ -1,6 +1,9 @@
 /media
 /static
-.env
+__pycache__/
 venv
 *.pyc
-sqlite3
+db.sqlite3
+*.log
+*.pot
+local_settings.py
